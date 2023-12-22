@@ -13,6 +13,12 @@ class Manager:
     def add_point(self, point):
         self.points.add(point)
 
+    def get_points(self):
+        return self.points
+
+    def get_routs(self):
+        return self.routs
+
     def add_route(self, route: Route = None, point_a=None, point_b=None, ets=datetime.time(), eta=datetime.time()):
         if route is not None:
             point_a, point_b = route.get_points()
@@ -40,7 +46,7 @@ class Manager:
                 latest_ets = found_ways[h][0]
                 for r in self.routs[h]:
                     _ets, _eta = r.get_timings()
-                    if latest_ets > _ets:
+                    if latest_ets <= _ets:
                         continue
                     _from, _to = r.get_points()
                     if _to not in found_ways.keys():
@@ -72,3 +78,11 @@ class Manager:
         way.reverse()
 
         return way
+
+    def __str__(self):
+        string = "manager:\n"
+        for i in self.points:
+            string += f"{str(i)}\n"
+        for i in self.routs:
+            string += f"{str(i)}: {str(self.routs[i])}\n"
+        return string

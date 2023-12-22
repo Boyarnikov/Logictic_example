@@ -1,7 +1,6 @@
 class Hub:
     _id = -1
     _name = ""
-    tracks = list()
     __id_counter__ = 0
 
     def __init__(self, name):
